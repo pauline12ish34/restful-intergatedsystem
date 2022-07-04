@@ -1,0 +1,37 @@
+version: '3'
+services:
+  backend:
+    depends_on:
+      - mongo
+    build: ./apis
+    ports:
+      - "7008:7008"
+    volumes:
+      - ./app/node_modules:/app/node_modules
+    restart: on-failure
+    container_name: backend
+      
+  frontend:
+    depends_on:
+      - backend
+    build: ./react-auth
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app/node_modules:/app/node_modules
+    restart: on-failure
+    container_name: frontend
+
+  mongo:
+    image: mongo
+    restart: on-failure
+    container_name: mongo
+    ports:
+      - "27018:27018"
+    volumes:
+        - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+        - ./db/mongo:/data/db
+    
+
+    
+   

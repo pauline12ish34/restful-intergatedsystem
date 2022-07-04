@@ -1,0 +1,6 @@
+docker run -p 4000:4000 backend
+
+you make docker-compose.yml it hass
+versions:'3:8'
+service:
+    backend
